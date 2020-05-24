@@ -74,7 +74,7 @@ public class MusicTable extends BaseTable implements TableOperations {
     public void deleteByID(int inputID) throws SQLException {
         Statement statement = connection.createStatement();
         int rows = statement.executeUpdate("DELETE FROM Musics WHERE Id = " + inputID);
-
         System.out.println(rows + " delete");
+        statement.close();
     }
 }
