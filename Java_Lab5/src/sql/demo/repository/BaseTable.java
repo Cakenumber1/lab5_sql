@@ -34,9 +34,9 @@ public class BaseTable implements Closeable {
         try {
             statement.execute(sql); // Выполняем statement - sql команду
         } catch (SQLException e) {
-            statement.close();// Закрываем statement для фиксации изменений в СУБД, если вылетит ошибка
+            System.out.println("Ошибка при выполнении sql команды!");
         }
-        statement.close();      // Закрываем statement для фиксации изменений в СУБД
+        statement.close();      // Закрываем statement для фиксации изменений в СУБД, была ошибка/не было
         if (description != null) {
             System.out.println(description);
         }
