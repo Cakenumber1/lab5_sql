@@ -29,14 +29,13 @@ public class BaseTable implements Closeable {
     }
 
     void executeSqlStatement(String sql, String description) throws SQLException {
-        reopenConnection();
         try (Statement statement = connection.createStatement()) {
             statement.execute(sql);
             if (description != null) {
                 System.out.println(description);
             }
         } catch (SQLException e) {
-            System.out.println("Ошибка при выполнении sql команды!");
+            throw new SQLException(e.getCause());
         }
 
     }

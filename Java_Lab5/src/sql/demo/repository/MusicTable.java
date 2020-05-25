@@ -76,7 +76,7 @@ public class MusicTable extends BaseTable implements TableOperations {
             int rows = state.executeUpdate("DELETE FROM Musics WHERE Id = " + inputID);
             System.out.println(rows + " delete");
         } catch (SQLException e) {
-            System.out.println("Ошибка при выполнении sql команды!");
+            throw new SQLException(e.getCause());
         }
     }
 }
