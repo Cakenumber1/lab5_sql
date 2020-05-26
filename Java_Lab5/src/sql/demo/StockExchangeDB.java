@@ -64,8 +64,6 @@ public class StockExchangeDB {
             //Удаляем музыку из таблицы по ID
             stockExchangeDB.musicTable.deleteByID(1);
             stockExchangeDB.musicTable.printAll();
-            //дописал
-            stockExchangeDB.musicTable.close();
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Ошибка SQL !");
