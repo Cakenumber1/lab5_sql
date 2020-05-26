@@ -42,9 +42,11 @@ public class StockExchangeDB {
     }
 
     public static void main(String[] args) {
+        StockExchangeDB stockExchangeDB= null;
         try {
+            stockExchangeDB = new StockExchangeDB(true);
             //Создаем новую таблицу
-            StockExchangeDB stockExchangeDB = new StockExchangeDB(true);
+
             stockExchangeDB.createTablesAndForeignKeys();
 
             //Создаем экземпляры класс Music
@@ -64,12 +66,21 @@ public class StockExchangeDB {
             //Удаляем музыку из таблицы по ID
             stockExchangeDB.musicTable.deleteByID(1);
             stockExchangeDB.musicTable.printAll();
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Ошибка SQL !");
 
         } catch (ClassNotFoundException e) {
             System.out.println("JDBC драйвер для СУБД не найден!");
+        }
+        finally {
+            if(stockExchangeDB != null)
+            try{
+                stockExchangeDB.musicTable.close();
+            }catch(Exception e){
+                System.out.println("Не знаю что тут за ошибка может быть");
+            }
         }
     }
 }
