@@ -72,11 +72,9 @@ public class MusicTable extends BaseTable implements TableOperations {
     }
 
     public void deleteByID(int inputID) throws SQLException {
-        try (Statement state = connection.createStatement()) {
-            int rows = state.executeUpdate("DELETE FROM Musics WHERE Id = " + inputID);
-            System.out.println(rows + " delete");
-        } catch (SQLException e) {
-            throw new SQLException(e.getCause());
-        }
+        Statement statement = connection.createStatement();
+        int rows = statement.executeUpdate("DELETE FROM Musics WHERE Id = " + inputID);
+
+        System.out.println(rows + " delete");
     }
 }
