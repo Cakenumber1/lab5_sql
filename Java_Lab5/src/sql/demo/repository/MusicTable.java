@@ -34,47 +34,57 @@ public class MusicTable extends BaseTable implements TableOperations {
 
 
     public void printAll() throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Musics");
-        while (resultSet.next()) {
-            int id = resultSet.getInt(1);
-            String title = resultSet.getString(2);
-            String artist = resultSet.getString(3);
-            Date date = resultSet.getDate(4);
-            int listPrice = resultSet.getInt(5);
-            int price = resultSet.getInt(6);
-            int version = resultSet.getInt(7);
-            System.out.println(id + "   \t" + title + '\t' + artist + '\t' + date + '\t' + listPrice + '\t' + price + '\t' + version);
+        try (Statement state = connection.createStatement()) {
+            ResultSet resultSet = state.executeQuery("SELECT * FROM Musics");
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String title = resultSet.getString(2);
+                String artist = resultSet.getString(3);
+                Date date = resultSet.getDate(4);
+                int listPrice = resultSet.getInt(5);
+                int price = resultSet.getInt(6);
+                int version = resultSet.getInt(7);
+                System.out.println(id + "   \t" + title + '\t' + artist + '\t' + date + '\t' + listPrice + '\t' + price + '\t' + version);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            throw new SQLException(e.getCause());
         }
     }
 
 
     public Music searchByID(int inputID) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Musics WHERE ID =" + inputID);
-        Music music = new Music();
-        while (resultSet.next()) {
-            int id = resultSet.getInt(1);
-            String title = resultSet.getString(2);
-            String artist = resultSet.getString(3);
-            Date date = resultSet.getDate(4);
-            int listPrice = resultSet.getInt(5);
-            int price = resultSet.getInt(6);
-            int version = resultSet.getInt(7);
-            music.setTitle(title);
-            music.setArtist(artist);
-            music.setDate(date.toString());
-            music.setListPrice(listPrice);
-            music.setPrice(price);
-            music.setVersion(version);
+        try (Statement state = connection.createStatement()) {
+            ResultSet resultSet = state.executeQuery("SELECT * FROM Musics WHERE ID =" + inputID);
+            Music music = new Music();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String title = resultSet.getString(2);
+                String artist = resultSet.getString(3);
+                Date date = resultSet.getDate(4);
+                int listPrice = resultSet.getInt(5);
+                int price = resultSet.getInt(6);
+                int version = resultSet.getInt(7);
+                music.setTitle(title);
+                music.setArtist(artist);
+                music.setDate(date.toString());
+                music.setListPrice(listPrice);
+                music.setPrice(price);
+                music.setVersion(version);
+            }
+            resultSet.close();
+            return music;
+        } catch (SQLException e) {
+            throw new SQLException(e.getCause());
         }
-        return music;
     }
 
     public void deleteByID(int inputID) throws SQLException {
-        Statement statement = connection.createStatement();
-        int rows = statement.executeUpdate("DELETE FROM Musics WHERE Id = " + inputID);
-
-        System.out.println(rows + " delete");
+        try (Statement state = connection.createStatement()) {
+            int rows = state.executeUpdate("DELETE FROM Musics WHERE Id = " + inputID);
+            System.out.println(rows + " delete");
+        } catch (SQLException e) {
+            throw new SQLException(e.getCause());
+        }
     }
 }
