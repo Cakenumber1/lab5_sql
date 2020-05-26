@@ -16,6 +16,14 @@ public class BaseTable implements Closeable {
         this.tableName = tableName;
         this.connection = StockExchangeDB.getConnection(); // Установим соединение с СУБД для дальнейшей работы
     }
+    @Override
+    public void finalize() throws  SQLException{
+        try {
+            connection.close();
+        }
+        catch (SQLException e){
+        }
+    }
 
     @Override
     public void close() {

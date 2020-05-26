@@ -1,5 +1,6 @@
 package sql.demo.repository;
 
+import sql.demo.StockExchangeDB;
 import sql.demo.model.Music;
 
 import java.sql.ResultSet;

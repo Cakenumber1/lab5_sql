@@ -32,7 +32,6 @@ public class StockExchangeDB {
         musicTable = new MusicTable();
     }
 
-
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL);
     }
@@ -70,6 +69,7 @@ public class StockExchangeDB {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Ошибка SQL !");
+
         } catch (ClassNotFoundException e) {
             System.out.println("JDBC драйвер для СУБД не найден!");
         }
